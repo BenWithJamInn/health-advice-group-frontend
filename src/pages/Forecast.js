@@ -49,9 +49,9 @@ const Forecast = () => {
         content = (
             <div>
                 {/*Day selector / preview*/}
-                <div className="mt-6 w-full flex flex-row flex-wrap justify-center">
+                <div className="mt-6 w-full flex flex-row lg:justify-center overflow-x-auto">
                     {data.forecast.forecastday.map(day => {
-                        return (<div className="ml-6 mr-6 mt-6">
+                        return (<div className="pl-4 pr-4 mt-6">
                             <DayCard
                                 data={day}
                                 setSelected={setSelectedData}
@@ -59,12 +59,15 @@ const Forecast = () => {
                         </div>)
                     })}
                 </div>
-                {/*Data display*/}
+                <div>
+
+                </div>
+                {/*Hourly forecast*/}
                 <div className="mt-6 p-4 flex flex-col lg:flex-row justify-around just">
                     <div className="mt-8">
                         <Card classNames="!w-full">
-                            <SimpleGrid classNames="!justify-around">
-                                <p className="w-full">Temperature(c)</p>
+                            <SimpleGrid classNames="!justify-around text-sm lg:text-base">
+                                <p className="w-full">Temp(c)</p>
                                 <p className="w-full">Humidity</p>
                                 <p className="w-full">UV</p>
                                 <p className="w-full">Windchill(c)</p>
@@ -75,7 +78,6 @@ const Forecast = () => {
                     <div className="pb-6 flex flex-col lg:flex-row lg:overflow-x-scroll">
                         {
                             selectedData.hour.map(hourly => {
-                                console.log(hourly)
                                 return (
                                     <div className="lg:mr-4 lg:ml-4 flex items-center flex-col" key={Math.random()}>
                                         {
@@ -112,9 +114,11 @@ const Forecast = () => {
     return (
         <div>
             <PageBar title="FORECAST">
-                <form onSubmit={submitAddress} className="w-1/2 h-8 flex justify-center text-black">
-                    <input id="forecast-address" type="text" title="Address" placeholder="Address" className="w-full p-1 rounded"/>
-                </form>
+                <div className="w-full pr-4 lg:pr-0 flex justify-end lg:justify-center">
+                    <form onSubmit={submitAddress} className="w-1/2 h-8 flex justify-center text-black">
+                        <input id="forecast-address" type="text" title="Address" placeholder="Address" className="w-full p-1 rounded"/>
+                    </form>
+                </div>
             </PageBar>
             {content}
         </div>
