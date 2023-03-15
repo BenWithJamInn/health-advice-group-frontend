@@ -12,7 +12,7 @@ const Forecast = () => {
 
     // Async function to make sure the promise is resolved before setting new state
     async function getData(address) {
-        const response = await client.get("forecast", {
+        const response = await client.get("forecast/hourly", {
             params: {
                 location: address
             }
@@ -58,9 +58,6 @@ const Forecast = () => {
                             />
                         </div>)
                     })}
-                </div>
-                <div>
-
                 </div>
                 {/*Hourly forecast*/}
                 <div className="mt-6 p-4 flex flex-col lg:flex-row justify-around just">

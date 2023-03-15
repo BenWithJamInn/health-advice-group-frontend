@@ -15,6 +15,9 @@ const NavBar = () => {
     ]
 
     document.addEventListener("mousedown", event => {
+        if (!sideBarRef.current) {
+            return
+        }
         if (!sideBarRef.current.contains(event.target) &&
             !burgerButton.current.contains(event.target)) {
             setSideBarOpen(false)
