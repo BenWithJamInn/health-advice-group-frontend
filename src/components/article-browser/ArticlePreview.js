@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const ArticlePreview = (props) => {
     return (
         <Link to={"/articles/viewer/" + props.article.id}>
-            <Card>
+            <Card classNames="hover:drop-shadow-2xl transition-[filter]">
                 <div className="w-48 min-h-[10rem] flex flex-col justify-between">
                     <div className="flex items-center flex-col text-center">
                         <h1 className="text-2xl">{props.article.title}</h1>

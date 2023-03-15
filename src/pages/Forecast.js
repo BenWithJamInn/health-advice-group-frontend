@@ -49,9 +49,9 @@ const Forecast = () => {
         content = (
             <div>
                 {/*Day selector / preview*/}
-                <div className="mt-6 w-full flex flex-row lg:justify-center overflow-x-auto">
+                <div className="mt-6 w-full flex flex-row justify-center overflow-x-auto">
                     {data.forecast.forecastday.map(day => {
-                        return (<div className="pl-4 pr-4 mt-6">
+                        return (<div className="ml-4 mr-4 mt-6">
                             <DayCard
                                 data={day}
                                 setSelected={setSelectedData}
@@ -62,7 +62,7 @@ const Forecast = () => {
                 {/*Hourly forecast*/}
                 <div className="mt-6 p-4 flex flex-col lg:flex-row justify-around just">
                     <div className="mt-8">
-                        <Card classNames="!w-full">
+                        <Card classNames="!w-full border-solid border-[1px] border-black">
                             <SimpleGrid classNames="!justify-around text-sm lg:text-base">
                                 <p className="w-full">Temp(c)</p>
                                 <p className="w-full">Humidity</p>
@@ -72,7 +72,7 @@ const Forecast = () => {
                             </SimpleGrid>
                         </Card>
                     </div>
-                    <div className="pb-6 flex flex-col lg:flex-row lg:overflow-x-scroll">
+                    <div className="pb-6 ml-4 flex flex-col lg:flex-row lg:overflow-x-scroll">
                         {
                             selectedData.hour.map(hourly => {
                                 return (
@@ -82,13 +82,13 @@ const Forecast = () => {
                                                 const time = moment(hourly.time)
                                                 return (
                                                     <div className="flex flex-row">
-                                                        <p className="h-8 text-lg font-bold">{time.format("kk")}</p>
-                                                        <p className="h-8 text-lg">{time.format(":mm")}</p>
+                                                        <p className="h-8 text-xl font-bold">{time.format("kk")}</p>
+                                                        <p className="h-8 text-xl">{time.format(":mm")}</p>
                                                     </div>
                                                 )
                                             })()
                                         }
-                                        <Card classNames="!w-full">
+                                        <Card classNames="!w-full border-solid border-[1px] border-black">
                                             <SimpleGrid classNames="!justify-around">
                                                 <p className="w-[15%] lg:w-auto">{hourly.temp_c}c</p>
                                                 <p className="w-[15%] lg:w-auto">{hourly.humidity}%</p>
