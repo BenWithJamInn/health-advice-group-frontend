@@ -12,6 +12,10 @@ const Forecast = () => {
 
     // Async function to make sure the promise is resolved before setting new state
     async function getData(address) {
+        if (!address) {
+            const ipResponse = await client.get("http://ip-api.com/json/")
+            address = ipResponse.data.query
+        }
         const response = await client.get("forecast/hourly", {
             params: {
                 location: address
@@ -25,8 +29,9 @@ const Forecast = () => {
         getData(document.getElementById("forecast-address").value)
     }
 
-    console.log("data")
-    console.log(data)
+    useEffect(() => {
+        getData(null)
+    })
 
     useEffect(() => {
         console.log("selecting data")
@@ -42,7 +47,7 @@ const Forecast = () => {
     if (!data || !selectedData || data.error) {
         content = (
             <div>
-                <button onClick={() => getData("southampton")}>Get data</button>
+                No Data
             </div>
         )
     } else {

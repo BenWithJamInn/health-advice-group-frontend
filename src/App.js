@@ -6,6 +6,7 @@ import Forecast from "./pages/Forecast";
 import axios from "axios";
 import ArticleBrowser from "./pages/ArticleBrowser";
 import ArticleViewer from "./pages/ArticleViewer";
+import SignUpPage from "./pages/SignUpPage";
 
 const client = axios.create({
     baseURL: "http://localhost:4567/api/v1"
@@ -21,6 +22,7 @@ function App() {
                         <Route path="/forecast" element={<Forecast />}/>
                         <Route path="/articles" element={<ArticleBrowser />}/>
                         <Route path="/articles/viewer/:id" element={<ArticleViewer />}/>
+                        <Route path="/signup" element={<SignUpPage/>}/>
                         <Route path="*" element="404"/>
                     </Route>
                 </Routes>
