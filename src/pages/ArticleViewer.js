@@ -3,6 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {client} from "../App";
 import PageBar from "../components/PageBar";
 import {ReactComponent as LeftArrow} from "../images/arrow-left-solid.svg"
+import Card from "../components/Card";
 
 const ArticleViewer = () => {
     const [article, setArticle] = useState(undefined)
@@ -15,12 +16,17 @@ const ArticleViewer = () => {
         return response.data
     }
 
+    (async () => {
+        if (article === undefined) {
+            setArticle(await getArticle())
+        }
+    })()
+
     useEffect(() => {
-        getArticle().then(res => setArticle(res))
         if (bodyRef.current) {
             bodyRef.current.innerHTML = article.body
         }
-    })
+    }, [article])
 
     let content;
     if (article) {
@@ -45,18 +51,22 @@ const ArticleViewer = () => {
     return (
         <div>
             <PageBar title="ARTICLES"/>
-            <div className="max-w-[40rem] pr-6 pl-6 m-auto pt-6">
-                <button onClick={back} className="w-20 mb-6 h-10 bg-primary-blue text-white rounded-xl pr-1 pl-1">
-                    <div className="flex flex-row items-center justify-around">
-                        <div className="w-5">
-                            <LeftArrow/>
-                        </div>
-                        Back
+            <div className="max-w-[60rem] w-full m-auto pt-6 pr-6 pl-6">
+                <Card classNames="w-full">
+                    <div className="w-full">
+                        <button onClick={back} className="w-20 mb-6 h-10 bg-primary-blue text-white rounded-xl pr-1 pl-1">
+                            <div className="flex flex-row items-center justify-around">
+                                <div className="w-5">
+                                    <LeftArrow/>
+                                </div>
+                                Back
+                            </div>
+                        </button>
+                        {
+                            content
+                        }
                     </div>
-                </button>
-                {
-                    content
-                }
+                </Card>
             </div>
         </div>
     );
