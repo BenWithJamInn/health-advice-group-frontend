@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link} from "react-router-dom";
 import {ReactComponent as BarsSolid} from "../../images/BarsSolid.svg"
 
@@ -38,15 +38,20 @@ const NavBar = () => {
         return loggedOutLinks
     }
 
-    document.addEventListener("mousedown", event => {
-        if (!sideBarRef.current) {
-            return
-        }
-        if (!sideBarRef.current.contains(event.target) &&
-            !burgerButton.current.contains(event.target)) {
+    useEffect(() => {
+        document.addEventListener("mousedown", event => {
+            if (!sideBarRef.current) {
+                return
+            }
+            if (!sideBarRef.current.contains(event.target) &&
+                !burgerButton.current.contains(event.target)) {
+                setSideBarOpen(false)
+            }
+        })
+        window.addEventListener("resize", () => {
             setSideBarOpen(false)
-        }
-    })
+        })
+    }, [])
 
     function onBarClick() {
         setSideBarOpen(prev => {
@@ -60,11 +65,11 @@ const NavBar = () => {
                 <img className="h-12 ml-5 mr-10" src={require("../../images/Logo_Filled.png")} alt="Health Advice Group Logo"/>
             </Link>
             {/*Navbar links desktop*/}
-            <div className="flex justify-between w-full pr-12">
-                <div className="hidden lg:flex flex-row space-x-10">
+            <div className="hidden lg:flex justify-between w-full pr-12">
+                <div className="flex flex-row space-x-10">
                     {navBarLinks}
                 </div>
-                <div className="hidden lg:flex flex-row space-x-10">
+                <div className="flex flex-row space-x-10">
                     {getEndLinks()}
                 </div>
             </div>
