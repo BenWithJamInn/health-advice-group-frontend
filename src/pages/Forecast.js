@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PageBar from "../components/PageBar";
 import DayCard from "../components/forecast/DayCard";
 import SimpleGrid from "../components/SimpleGrid";
@@ -9,18 +9,16 @@ import moment from "moment";
 const Forecast = () => {
     const [data, setData] = useState()
     const [selectedData, setSelectedData] = useState();
+    const address = useRef(null)
 
     // Async function to make sure the promise is resolved before setting new state
-    async function getData(address) {
-        if (!address) {
-            const ipResponse = await client.get("http://ip-api.com/json/")
-            address = ipResponse.data.query
-        }
+    async function getData(queryAddress) {
         const response = await client.get("forecast/hourly", {
             params: {
-                location: address
+                location: queryAddress
             }
         })
+        address.current = (response.data.location.name + " " + response.data.location.region)
         setData(response.data)
     }
 
@@ -30,8 +28,12 @@ const Forecast = () => {
     }
 
     useEffect(() => {
-        getData(null)
-    })
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((geoEvent) => {
+                getData(geoEvent.coords.latitude + "," + geoEvent.coords.longitude)
+            })
+        }
+    }, [])
 
     useEffect(() => {
         console.log("selecting data")
@@ -47,16 +49,18 @@ const Forecast = () => {
     if (!data || !selectedData || data.error) {
         content = (
             <div>
-                No Data
+                <h1 className="text-xl text-center max-w-[30rem] mx-auto mt-6">Please enter you address into the search bar or accept location permissions in your browser.</h1>
             </div>
         )
     } else {
         content = (
             <div>
+                {/*Current address selected*/}
+                {address.current ? <h1 className="text-xl text-center max-w-[30rem] mt-6 mx-auto">Showing forecast for: {address.current}</h1> : null}
                 {/*Day selector / preview*/}
-                <div className="mt-6 w-full flex flex-row justify-center overflow-x-auto">
+                <div className="mt-3 w-full flex flex-row justify-center overflow-x-auto">
                     {data.forecast.forecastday.map(day => {
-                        return (<div className="ml-4 mr-4 mt-6">
+                        return (<div className="ml-4 mr-4 mt-6 inline-block">
                             <DayCard
                                 data={day}
                                 setSelected={setSelectedData}
