@@ -8,10 +8,23 @@ import ArticleBrowser from "./pages/ArticleBrowser";
 import ArticleViewer from "./pages/ArticleViewer";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
+import HealthTrackingPage from "./pages/HealthTrackingPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-const client = axios.create({
-    baseURL: "http://localhost:4567/api/v1"
-})
+let client;
+
+if (window.localStorage.getItem("logged-in") === "true") {
+    client = axios.create({
+        baseURL: "http://localhost:4567/api/v1",
+        headers: {
+            Authorization: window.localStorage.getItem("token")
+        }
+    })
+} else {
+    axios.create({
+        baseURL: "http://localhost:4567/api/v1"
+    })
+}
 
 function App() {
     return (
@@ -23,6 +36,7 @@ function App() {
                         <Route path="/forecast" element={<Forecast />}/>
                         <Route path="/articles" element={<ArticleBrowser />}/>
                         <Route path="/articles/viewer/:id" element={<ArticleViewer />}/>
+                        <Route path="/tracker" element={<ProtectedRoute><HealthTrackingPage/></ProtectedRoute>}/>
                         <Route path="/signup" element={<SignUpPage/>}/>
                         <Route path="/signin" element={<SignInPage/>}/>
                         <Route path="*" element="404"/>
