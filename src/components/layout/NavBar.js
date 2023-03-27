@@ -72,8 +72,8 @@ const NavBar = () => {
     }
 
     return (
-        <div>
-            <nav id="navbar" className="bg-white w-full h-20 text-lg flex items-center sticky top-0 z-40">
+        <div className="sticky top-0 z-40">
+            <nav id="navbar" className="bg-white w-full h-20 text-lg flex items-center">
                 <Link to="/">
                     <img className="h-12 ml-5 mr-10" src={require("../../images/Logo_Filled.png")} alt="Health Advice Group Logo"/>
                 </Link>

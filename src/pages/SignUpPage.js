@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PageBar from "../components/PageBar";
 import {client} from "../App";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import axios from "axios";
 
 // https://stackoverflow.com/a/201378
@@ -90,6 +90,7 @@ const SignUpPage = () => {
                 window.location.href = "/"
             }, 1000)
         } catch (e) {
+            console.log(e)
             document.getElementById("submit-error").innerHTML = e.response.data.message
         }
     }

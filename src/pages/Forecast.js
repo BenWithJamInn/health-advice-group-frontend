@@ -18,6 +18,10 @@ const Forecast = () => {
                 location: queryAddress
             }
         })
+        // if no location returns then no location was found
+        if (!response.data.location) {
+            return
+        }
         address.current = (response.data.location.name + " " + response.data.location.region)
         setData(response.data)
     }
@@ -58,9 +62,9 @@ const Forecast = () => {
                 {/*Current address selected*/}
                 {address.current ? <h1 className="text-xl text-center max-w-[30rem] mt-6 mx-auto">Showing forecast for: {address.current}</h1> : null}
                 {/*Day selector / preview*/}
-                <div className="mt-3 w-full flex flex-row justify-center overflow-x-auto">
+                <div className="mt-3 w-full flex flex-row justify-start lg:justify-center overflow-x-auto">
                     {data.forecast.forecastday.map(day => {
-                        return (<div className="ml-4 mr-4 mt-6 inline-block">
+                        return (<div className="ml-4 mr-4 mt-6">
                             <DayCard
                                 data={day}
                                 setSelected={setSelectedData}
@@ -70,7 +74,7 @@ const Forecast = () => {
                 </div>
                 {/*Hourly forecast*/}
                 <div className="mt-6 p-4 flex flex-col lg:flex-row justify-around just">
-                    <div className="mt-8">
+                    <div className="mt-8 sticky top-[6rem] z-10">
                         <Card classNames="!w-full border-solid border-[1px] border-black">
                             <SimpleGrid classNames="!justify-around text-sm lg:text-base">
                                 <p className="w-full">Temp(c)</p>

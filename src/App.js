@@ -21,7 +21,7 @@ if (window.localStorage.getItem("logged-in") === "true") {
         }
     })
 } else {
-    axios.create({
+    client = axios.create({
         baseURL: "http://localhost:4567/api/v1"
     })
 }
