@@ -21,7 +21,7 @@ const NavBar = () => {
     }
 
     const navBarLinks = [
-        <Link onClick={() => setSideBarOpen(false)} to="/forecast">FORECAST</Link>,
+        <Link onClick={() => setSideBarOpen(false)} to="/weather">WEATHER</Link>,
         <Link onClick={() => setSideBarOpen(false)} to="/articles">ARTICLES</Link>,
         <Link onClick={() => setSideBarOpen(false)} to="/tracker">HEALTH TRACKER</Link>,
         <Link onClick={() => setSideBarOpen(false)} to="/about-us">ABOUT US</Link>
