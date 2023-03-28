@@ -5,16 +5,22 @@ import NewLogOverlay from "../components/tracker/NewLogOverlay";
 import {client} from "../App";
 import {ReactComponent as PenToSquare} from "../images/pen-to-square-regular.svg";
 import moment from "moment";
+import {useNavigate} from "react-router-dom";
 
 const HealthTrackingPage = () => {
     const [overlayVisible, setOverlayVisible] = useState(false);
     const [logs, setLogs] = useState([])
     const overlay = useRef()
     const newButton = useRef()
+    const navigate  = useNavigate()
 
     async function getLogs() {
-        const response = await client.get("/healthlog/")
-        setLogs(response.data)
+        try {
+            const response = await client.get("/healthlog/")
+            setLogs(response.data)
+        } catch (e) {
+            navigate("/signin")
+        }
     }
 
     useEffect(() => {
@@ -40,8 +46,6 @@ const HealthTrackingPage = () => {
         }
     }
     averageScore = totalScore / logs.length
-
-    console.log(worstDay)
 
     return (
         <div>

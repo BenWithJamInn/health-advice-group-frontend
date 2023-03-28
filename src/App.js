@@ -11,20 +11,16 @@ import SignInPage from "./pages/SignInPage";
 import HealthTrackingPage from "./pages/HealthTrackingPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-let client;
+const client = axios.create({
+    baseURL: "http://localhost:4567/api/v1"
+})
 
-if (window.localStorage.getItem("logged-in") === "true") {
-    client = axios.create({
-        baseURL: "http://localhost:4567/api/v1",
-        headers: {
-            Authorization: window.localStorage.getItem("token")
-        }
-    })
-} else {
-    client = axios.create({
-        baseURL: "http://localhost:4567/api/v1"
-    })
-}
+client.interceptors.request.use(config => {
+    if (window.localStorage.getItem("logged-in") === "true") {
+        config.headers.Authorization = window.localStorage.getItem("token")
+    }
+    return config
+})
 
 function App() {
     return (

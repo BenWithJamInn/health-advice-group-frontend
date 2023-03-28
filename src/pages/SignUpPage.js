@@ -79,18 +79,11 @@ const SignUpPage = () => {
             window.localStorage.setItem("logged-in", "true")
             document.getElementById("status-text").classList.remove("hidden")
             document.getElementById("signup-form").classList.add("hidden")
-            client = axios.create({
-                baseURL: "http://localhost:4567/api/v1",
-                headers: {
-                    Authorization: res.data.token
-                }
-            })
 
             setTimeout(() => {
                 window.location.href = "/"
             }, 1000)
         } catch (e) {
-            console.log(e)
             document.getElementById("submit-error").innerHTML = e.response.data.message
         }
     }
