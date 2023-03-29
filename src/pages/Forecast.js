@@ -69,8 +69,8 @@ const Forecast = () => {
             {name: "Sulphur dioxide (μg/m3)", value: airQualDataRaw.so2},
             {name: "PM2.5 (μg/m3)", value: airQualDataRaw.pm2_5},
             {name: "PM10 (μg/m3)", value: airQualDataRaw.pm10},
-            {name: "UK Defra Index", value: airQualDataRaw["gb-defra-index"]},
-            {name: "US - EPA standard", value: airQualDataRaw["us-epa-index"]},
+            {name: "UK Defra Index*", value: airQualDataRaw["gb-defra-index"]},
+            {name: "US - EPA standard**", value: airQualDataRaw["us-epa-index"]},
         ]
         content = (
             <div>
@@ -97,8 +97,8 @@ const Forecast = () => {
                             </div>
                         </div>
                         <div className="mt-6">
-                            <p>Defra Index: (best 1-10 worst)</p>
-                            <p>US - EPA Standard: (best 1-6 worst)</p>
+                            <p>*Defra Index: (best 1-10 worst)</p>
+                            <p>**US - EPA Standard: (best 1-6 worst)</p>
                         </div>
                     </div>
                 </div>

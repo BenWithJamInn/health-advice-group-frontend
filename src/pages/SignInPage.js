@@ -86,6 +86,7 @@ const SignUpPage = () => {
                         <label className="text-red-600 mb-6" id="submit-error"></label>
                         <input className="bg-primary-blue text-white text-xl w-32 h-12 rounded-lg hover:cursor-pointer" id="sign-up-submit" type="submit" value="Sign In"/>
                     </div>
+                    <p className="text-center mt-3">By signing in you accept our privacy/cookie policy and terms of service.</p>
                 </form>
             </div>
         </div>
