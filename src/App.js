@@ -12,7 +12,7 @@ import HealthTrackingPage from "./pages/HealthTrackingPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const client = axios.create({
-    baseURL: "http://localhost:4567/api/v1"
+    baseURL: "http://162.55.91.133:9080/api/v1"
 })
 
 client.interceptors.request.use(config => {
